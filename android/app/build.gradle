@@ -113,9 +113,9 @@ android {
 
     compileSdkVersion rootProject.ext.compileSdkVersion
 
-    namespace "com.vireoxcreazioneapp"
+    namespace "com.enma"
     defaultConfig {
-        applicationId "com.vireoxcreazioneapp"
+        applicationId "com.enma"
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
         versionCode 1

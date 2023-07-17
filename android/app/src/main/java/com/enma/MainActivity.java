@@ -1,4 +1,4 @@
-package com.vireoxcreazioneapp;
+package com.enma;
 
 import android.os.Build;
 import android.os.Bundle;
@@ -19,7 +19,7 @@ public class MainActivity extends ReactActivity {
    */
   @Override
   protected String getMainComponentName() {
-    return "vireoXcreazioneAPP";
+    return "ENMA";
   }
 
   /**

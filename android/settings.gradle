@@ -1,4 +1,4 @@
-rootProject.name = 'vireoXcreazioneAPP'
+rootProject.name = 'ENMA'
 
 apply from: new File(["node", "--print", "require.resolve('expo/package.json')"].execute(null, rootDir).text.trim(), "../scripts/autolinking.gradle");
 useExpoModules()

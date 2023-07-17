@@ -11,5 +11,5 @@ function IgniteApp() {
   return <App hideSplashScreen={RNBootSplash.hide} />
 }
 
-AppRegistry.registerComponent("vireoXcreazioneAPP", () => IgniteApp)
+AppRegistry.registerComponent("ENMA", () => IgniteApp)
 export default App
