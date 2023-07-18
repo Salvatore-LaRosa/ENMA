@@ -44,6 +44,10 @@ export class Api {
     })
   }
 
+  async login(username,password) {
+    //let response = await this.apisauce.get("/login/login_miner.php")
+  }
+
 }
 
 // Singleton instance of the API for convenience
