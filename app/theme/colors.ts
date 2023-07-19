@@ -1,7 +1,4 @@
 // TODO: write documentation for colors and palette in own markdown file and add links from here
-
-import { Button } from "app/components"
-
 const palette = {
   neutral50: "#F9FBFC",
   neutral100: "#E7EAF0",
@@ -43,8 +40,9 @@ export const colors = {
    */
   errorBackground: palette.failure500,
   dark : {
+    loginForm: palette.neutral900,
     palette: palette.neutral900,
-    form: palette.neutral900,
+    form: palette.neutral700,
     background: palette.neutral900,
     secondaryText: palette.neutral500,
     mainText: palette.neutral50,
@@ -54,6 +52,7 @@ export const colors = {
   },
 
   light: {
+    loginForm: palette.neutral50,
     form: palette.neutral50,
     background: palette.neutral100,
     secondaryText: palette.neutral500,

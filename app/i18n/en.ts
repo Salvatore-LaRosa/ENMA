@@ -5,7 +5,7 @@ const en = {
     back: "Back",
   },
   loginScreen: {
-    signIn: "ENMA",
+    title: "ENMA",
     emailFieldPlaceholder: "Username",
     passwordFieldPlaceholder: "Password",
     tapToSignIn: "Login",

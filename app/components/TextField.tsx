@@ -1,10 +1,11 @@
-import React, { ComponentType, forwardRef, Ref, useImperativeHandle, useRef } from "react"
+import React, { ComponentType, forwardRef, Ref, useImperativeHandle, useMemo, useRef } from "react"
 import {
   StyleProp,
   TextInput,
   TextInputProps,
   TextStyle,
   TouchableOpacity,
+  useColorScheme,
   View,
   ViewStyle,
 } from "react-native"
@@ -103,6 +104,18 @@ export interface TextFieldProps extends Omit<TextInputProps, "ref"> {
  * - [Documentation and Examples](https://github.com/infinitered/ignite/blob/master/docs/Components-TextField.md)
  */
 export const TextField = forwardRef(function TextField(props: TextFieldProps, ref: Ref<TextInput>) {
+
+
+  const isDark = useColorScheme() === "dark"
+
+  const palette = useMemo(() => {
+    return isDark ? colors.dark : colors.light
+  }, [isDark])
+
+  const style = useMemo(() => {
+    return getStyle(palette);
+  }, [palette])
+
   const {
     labelTx,
     label,
@@ -133,10 +146,10 @@ export const TextField = forwardRef(function TextField(props: TextFieldProps, re
 
   const $containerStyles = [$containerStyleOverride]
 
-  const $labelStyles = [$labelStyle, LabelTextProps?.style]
+  const $labelStyles = [style.$labelStyle, LabelTextProps?.style]
 
   const $inputWrapperStyles = [
-    $inputWrapperStyle,
+    style.$inputWrapperStyle,
     status === "error" && { borderColor: colors.error },
     TextInputProps.multiline && { minHeight: 112 },
     LeftAccessory && { paddingStart: 0 },
@@ -145,15 +158,15 @@ export const TextField = forwardRef(function TextField(props: TextFieldProps, re
   ]
 
   const $inputStyles = [
-    $inputStyle,
-    disabled && { color: colors.textDim },
+    style.$inputStyle,
+    disabled && { color: colors.palette.neutral500 },
     isRTL && { textAlign: "right" as TextStyle["textAlign"] },
     TextInputProps.multiline && { height: "auto" },
     $inputStyleOverride,
   ]
 
   const $helperStyles = [
-    $helperStyle,
+    style.$helperStyle,
     status === "error" && { color: colors.error },
     HelperTextProps?.style,
   ]
@@ -187,7 +200,7 @@ export const TextField = forwardRef(function TextField(props: TextFieldProps, re
       <View style={$inputWrapperStyles}>
         {!!LeftAccessory && (
           <LeftAccessory
-            style={$leftAccessoryStyle}
+            style={style.$leftAccessoryStyle}
             status={status}
             editable={!disabled}
             multiline={TextInputProps.multiline}
@@ -199,7 +212,7 @@ export const TextField = forwardRef(function TextField(props: TextFieldProps, re
           underlineColorAndroid={colors.transparent}
           textAlignVertical="top"
           placeholder={placeholderContent}
-          placeholderTextColor={colors.textDim}
+          placeholderTextColor={colors.palette.neutral500}
           {...TextInputProps}
           editable={!disabled}
           style={$inputStyles}
@@ -207,7 +220,7 @@ export const TextField = forwardRef(function TextField(props: TextFieldProps, re
 
         {!!RightAccessory && (
           <RightAccessory
-            style={$rightAccessoryStyle}
+            style={style.$rightAccessoryStyle}
             status={status}
             editable={!disabled}
             multiline={TextInputProps.multiline}
@@ -229,47 +242,46 @@ export const TextField = forwardRef(function TextField(props: TextFieldProps, re
   )
 })
 
-const $labelStyle: TextStyle = {
-  marginBottom: spacing.xs,
-}
-
-const $inputWrapperStyle: ViewStyle = {
-  flexDirection: "row",
-  alignItems: "flex-start",
-  borderWidth: 1,
-  borderRadius: 4,
-  backgroundColor: colors.palette.neutral200,
-  borderColor: colors.palette.neutral400,
-  overflow: "hidden",
-}
-
-const $inputStyle: TextStyle = {
-  flex: 1,
-  alignSelf: "stretch",
-  fontFamily: typography.primary.normal,
-  color: colors.text,
-  fontSize: 16,
-  height: 24,
-  // https://github.com/facebook/react-native/issues/21720#issuecomment-532642093
-  paddingVertical: 0,
-  paddingHorizontal: 0,
-  marginVertical: spacing.xs,
-  marginHorizontal: spacing.sm,
-}
-
-const $helperStyle: TextStyle = {
-  marginTop: spacing.xs,
-}
-
-const $rightAccessoryStyle: ViewStyle = {
-  marginEnd: spacing.xs,
-  height: 40,
-  justifyContent: "center",
-  alignItems: "center",
-}
-const $leftAccessoryStyle: ViewStyle = {
-  marginStart: spacing.xs,
-  height: 40,
-  justifyContent: "center",
-  alignItems: "center",
+function getStyle(palette) {
+  return {
+    $labelStyle: {
+      marginBottom: spacing.xs,
+    },
+    $inputWrapperStyle: {
+      flexDirection: "row",
+      alignItems: "flex-start",
+      borderWidth: 1,
+      borderRadius: 4,
+      backgroundColor: palette.background,
+      borderColor: palette.border,
+      overflow: "hidden",
+    }, 
+    $inputStyle: {
+      flex: 1,
+      alignSelf: "stretch",
+      fontFamily: typography.primary.normal,
+      color: palette.mainText,
+      fontSize: 16,
+      height: 24,
+      // https://github.com/facebook/react-native/issues/21720#issuecomment-532642093
+      paddingVertical: 0,
+      paddingHorizontal: 0,
+      marginVertical: spacing.xs,
+      marginHorizontal: spacing.sm,
+    },
+    $helperStyle: {
+      marginTop: spacing.xs,
+    },
+    $rightAccessoryStyle: {
+      marginEnd: spacing.xs,
+      height: 40,
+      justifyContent: "center",
+      alignItems: "center",
+    },
+    $leftAccessoryStyle: {
+      marginStart: spacing.xs,
+      height: 40,
+      justifyContent: "center",
+      alignItems: "center",}
+  };
 }

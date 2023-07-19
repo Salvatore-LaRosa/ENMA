@@ -4,8 +4,7 @@ import { Image, ImageStyle } from "react-native"
 const BackgroundImage = () => {
     return (
         <Image 
-            source={require("assets/images/background.jpg")}
-            resizeMode="contain"
+            source={require("assets/images/backgroundNew.jpg")}
             style={$image}
         />
     );
