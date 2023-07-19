@@ -13,7 +13,6 @@ import { colors, spacing } from "app/theme"
 import { LinearGradient } from 'expo-linear-gradient';
 
 import BackgroundImage from "./components/BackgroundImage"
-import { color } from "react-native-reanimated"
 
 interface LoginScreenProps extends NativeStackScreenProps<AppStackScreenProps<"Login">> {}
 
@@ -24,13 +23,13 @@ export const LoginScreen: FC<LoginScreenProps> = observer(function LoginScreen()
 
   const authPasswordInput = useRef<TextInput>()
   const [authPassword, setAuthPassword] = useState("")
-  const [authEmail, setAuthEmail] = useState("")
+  //const [authEmail, setAuthEmail] = useState("")
   const [isAuthPasswordHidden, setIsAuthPasswordHidden] = useState(true)
   const [isSubmitted, setIsSubmitted] = useState(false)
   const [attemptsCount, setAttemptsCount] = useState(0)
-  //const {
-  //  authenticationStore: { authEmail, setAuthEmail, setAuthToken, validationError },
-  //} = useStores()
+  const {
+    authenticationStore: { authEmail, setAuthEmail, setAuthToken, validationError },
+  } = useStores()
 
   const palette = useMemo(() => {
     return isDark ? colors.dark : colors.light
@@ -39,33 +38,34 @@ export const LoginScreen: FC<LoginScreenProps> = observer(function LoginScreen()
   const style = useMemo(() => {
     return getStyle(palette);
   }, [palette])
+  
 
   async function gestisciClick() {
   }
 
   useEffect(() => {
-    return () => {
-      setAuthPassword("")
-      setAuthEmail("")
-    }
+    // Here is where you could fetch credentials from keychain or storage
+    // and pre-fill the form fields.
+    setAuthEmail("ignite@infinite.red")
+    setAuthPassword("ign1teIsAwes0m3")
   }, [])
 
-  //const error = isSubmitted ? validationError : ""
+  const error = isSubmitted ? validationError : ""
 
   function login() {
     setIsSubmitted(true)
     setAttemptsCount(attemptsCount + 1)
 
-    //if (validationError) return
+    if (validationError) return
 
     // Make a request to your server to get an authentication token.
     // If successful, reset the fields and set the token.
-    //setIsSubmitted(false)
-    //setAuthPassword("")
-    //setAuthEmail("")
+    setIsSubmitted(false)
+    setAuthPassword("")
+    setAuthEmail("")
 
     // We'll mock this with a fake token.
-    //setAuthToken(String(Date.now()))
+    setAuthToken(String(Date.now()))
   }
 
   const PasswordRightAccessory = useMemo(
@@ -84,6 +84,13 @@ export const LoginScreen: FC<LoginScreenProps> = observer(function LoginScreen()
       },
     [isAuthPasswordHidden],
   )
+
+  useEffect(() => {
+    return () => {
+      setAuthPassword("")
+      setAuthEmail("")
+    }
+  }, [])
 
   // Pull in navigation via hook
   // const navigation = useNavigation()
@@ -112,8 +119,8 @@ export const LoginScreen: FC<LoginScreenProps> = observer(function LoginScreen()
             autoCorrect={false}
             keyboardType="email-address"
             placeholderTx="loginScreen.emailFieldPlaceholder"
-            //helper={error}
-            //status={error ? "error" : undefined}
+            helper={error}
+            status={error ? "error" : undefined}
             onSubmitEditing={() => authPasswordInput.current?.focus()}
             inputWrapperStyle={style.inputField}
             LeftAccessory={
