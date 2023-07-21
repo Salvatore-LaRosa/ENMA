@@ -89,6 +89,7 @@ export const iconRegistry = {
   lock: require("../../assets/icons/passwLock.png"),
   hidden: require("../../assets/icons/hidden.png"),
   view: require("../../assets/icons/view.png"),
+  home: require("../../assets/icons/Home.png"),
 }
 
 const $imageStyle: ImageStyle = {

@@ -8,6 +8,7 @@ import {
   DarkTheme,
   DefaultTheme,
   NavigationContainer,
+  NavigatorScreenParams,
 } from "@react-navigation/native"
 import { createNativeStackNavigator, NativeStackScreenProps } from "@react-navigation/native-stack"
 import { observer } from "mobx-react-lite"
@@ -18,6 +19,7 @@ import Config from "../config"
 import { navigationRef, useBackButtonHandler } from "./navigationUtilities"
 import { colors } from "app/theme"
 import { useStores } from "app/models"
+import { Navigator, HomeTabParamList } from "./Navigator"
 
 /**
  * This type allows TypeScript to know what routes are defined in this navigator
@@ -35,7 +37,8 @@ import { useStores } from "app/models"
 export type AppStackParamList = {
   // 🔥 Your screens go here
   Login: undefined
-	Home: undefined
+	Home: NavigatorScreenParams<HomeTabParamList>
+	BiometricAuthentication: undefined
 	// IGNITE_GENERATOR_ANCHOR_APP_STACK_PARAM_LIST
 }
 
@@ -60,10 +63,11 @@ const AppStack = observer(function AppStack() {
   return (
     <Stack.Navigator
       screenOptions={{ headerShown: false, navigationBarColor: colors.light.background }}
-      initialRouteName={isAuthenticated ? "Home" : "Login"} 
+      initialRouteName={isAuthenticated ? "BiometricAuthentication" : "Login"} 
     >
       {isAuthenticated ? (
         <>
+        	<Stack.Screen name="BiometricAuthentication" component={Screens.BiometricAuthenticationScreen} />
           <Stack.Screen name="Home" component={Screens.HomeScreen} />
         </>
       ) : (

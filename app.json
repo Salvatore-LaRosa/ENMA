@@ -21,6 +21,7 @@
       "**/*"
     ],
     "android": {
+      "userInterfaceStyle": "automatic",
       "icon": "./assets/images/app-icon-android-legacy.png",
       "package": "com.enma",
       "adaptiveIcon": {
@@ -42,6 +43,9 @@
         "tabletImage": "./assets/images/splash-logo-ios-tablet.png",
         "resizeMode": "contain",
         "backgroundColor": "#191015"
+      },
+      "infoPlist": {
+        "NSFaceIDUsageDescription": "Face ID is used to authentication"
       }
     },
     "web": {

@@ -6,6 +6,7 @@ import { NativeStackScreenProps } from "@react-navigation/native-stack"
 import { AppStackScreenProps } from "app/navigators"
 import { api } from "app/services/api"
 import { useColorScheme } from 'react-native';
+
 // import { useNavigation } from "@react-navigation/native"
 import { useStores } from "app/models"
 import { colors, spacing } from "app/theme"
@@ -23,12 +24,11 @@ export const LoginScreen: FC<LoginScreenProps> = observer(function LoginScreen()
 
   const authPasswordInput = useRef<TextInput>()
   const [authPassword, setAuthPassword] = useState("")
-  //const [authEmail, setAuthEmail] = useState("")
   const [isAuthPasswordHidden, setIsAuthPasswordHidden] = useState(true)
   const [isSubmitted, setIsSubmitted] = useState(false)
   const [attemptsCount, setAttemptsCount] = useState(0)
   const {
-    authenticationStore: { authEmail, setAuthEmail, setAuthToken, validationError },
+    authenticationStore: { authEmail, setAuthEmail, setAuthToken, validationEmailError: validationError },
   } = useStores()
 
   const palette = useMemo(() => {
@@ -38,10 +38,6 @@ export const LoginScreen: FC<LoginScreenProps> = observer(function LoginScreen()
   const style = useMemo(() => {
     return getStyle(palette);
   }, [palette])
-  
-
-  async function gestisciClick() {
-  }
 
   useEffect(() => {
     // Here is where you could fetch credentials from keychain or storage
@@ -188,8 +184,7 @@ function getStyle(palette) {
       borderRadius: 100,
       backgroundColor: palette.loginForm,
       transform: [{ scaleX: 2.5 }, { scaleY: 1}],
-
-      position: "absolute",
+      position: "absolute" as "absolute",
       top: 400,
       left: 100,
     },

@@ -10,6 +10,17 @@ const en = {
     passwordFieldPlaceholder: "Password",
     tapToSignIn: "Login",
   },
+  aprovedAuthenitcationScreen: {
+    title: "Bentornato ",
+    pinFieldPlaceholder: "Pin",
+    button: "Accedi"
+    resetPin: "Reimposta il pin"
+  },
+  refusedAuthenitcationScreen: {
+    title: "Insercisci il pin",
+    pinFieldPlaceholder: "Pin",
+    button: "Accedi"
+  },
   errorScreen: {
     title: "Something went wrong!",
     friendlySubtitle:
