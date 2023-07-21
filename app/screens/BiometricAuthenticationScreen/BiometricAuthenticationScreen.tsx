@@ -5,7 +5,8 @@ import { NativeStackScreenProps } from "@react-navigation/native-stack"
 import { AppStackScreenProps } from "app/navigators"
 import { Button, Icon, Screen, Text, TextField } from "app/components"
 import { useStores } from "app/models"
-import BackgroundImage from "./components/BackgroundImage"
+import BackgroundImage from "app/components/BackgroundImage"
+import RoundedForm from "app/components/RoundedForm"
 import * as LocalAuthentication from 'expo-local-authentication';
 
 
@@ -13,6 +14,7 @@ import { colors, spacing } from "app/theme"
 import { TextInput, TouchableHighlight } from "react-native-gesture-handler"
 import { StatusBar } from "expo-status-bar"
 import { LinearGradient } from "expo-linear-gradient"
+import SigninPin from "./components/SigninPin"
 
 interface BiometricAuthenticationScreenProps extends NativeStackScreenProps<AppStackScreenProps<"BiometricAuthentication">> {}
 
@@ -122,9 +124,7 @@ export const BiometricAuthenticationScreen: FC<BiometricAuthenticationScreenProp
 
       <BackgroundImage/>
 
-      <View
-        style={ style.rounded}
-      />  
+      <RoundedForm/>
 
       <View
         style={style.form}>
@@ -183,51 +183,7 @@ export const BiometricAuthenticationScreen: FC<BiometricAuthenticationScreenProp
 
                     />
                 </View>
-            : <View>
-                <Text 
-                      testID="login-heading" 
-                      tx="refusedAuthenitcationScreen.title" 
-                      preset="heading" 
-                      style={style.title} />
-                <TextField
-                  ref={authPinInput}
-                  value={pin}
-                  onChangeText={setPin}
-                  containerStyle={style.textField}
-                  autoCapitalize="none"
-                  autoComplete="password"
-                  autoCorrect={false}
-                  keyboardType="decimal-pad"
-                  helper={error}
-                  status={error ? "error" : undefined}
-                  secureTextEntry={isAuthPinHidden}
-                  placeholderTx="refusedAuthenitcationScreen.pinFieldPlaceholder"
-                  inputWrapperStyle={style.inputField}
-                  LeftAccessory={
-                    (props) => <Icon 
-                      style={style.iconLeft}
-                      icon="lock" 
-                      containerStyle={props.style}
-                    />
-                  }
-                />
-
-                <LinearGradient
-                  colors={[palette.buttonGradientStart, palette.buttonGradientEnd]}
-                  start={ {x: 0, y: 0} }
-                  end={ {x: 0, y: 1} }
-                  style={style.gradientButton}
-                  >
-                    <Button
-                    pressedStyle={{backgroundColor: palette.buttonGradientEnd}}
-                      testID="login-button"
-                      tx="refusedAuthenitcationScreen.button"
-                      preset="reversed"
-                      onPress={setPinFunction}
-                      style={style.tapButton}
-                    />  
-                </LinearGradient>
-          </View>
+            : <SigninPin/>
           }
 
           <StatusBar style="auto"/>

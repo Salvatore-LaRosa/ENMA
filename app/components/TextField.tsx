@@ -250,8 +250,8 @@ function getStyle(palette) {
     $inputWrapperStyle: {
       flexDirection: "row",
       alignItems: "flex-start",
-      borderWidth: 1,
-      borderRadius: 4,
+      borderWidth: 3,
+      borderRadius: 30,
       backgroundColor: palette.background,
       borderColor: palette.border,
       overflow: "hidden",
@@ -266,20 +266,21 @@ function getStyle(palette) {
       // https://github.com/facebook/react-native/issues/21720#issuecomment-532642093
       paddingVertical: 0,
       paddingHorizontal: 0,
-      marginVertical: spacing.xs,
+      marginVertical: spacing.sm,
       marginHorizontal: spacing.sm,
     },
     $helperStyle: {
       marginTop: spacing.xs,
     },
     $rightAccessoryStyle: {
-      marginEnd: spacing.xs,
+      marginEnd: spacing.md,
       height: 40,
       justifyContent: "center",
       alignItems: "center",
     },
     $leftAccessoryStyle: {
-      marginStart: spacing.xs,
+      paddingTop: spacing.xs,
+      marginStart: spacing.md,
       height: 40,
       justifyContent: "center",
       alignItems: "center",}

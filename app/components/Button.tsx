@@ -1,4 +1,4 @@
-import React, { ComponentType } from "react"
+import React, { ComponentType, useMemo } from "react"
 import {
   Pressable,
   PressableProps,
@@ -6,6 +6,7 @@ import {
   StyleProp,
   TextStyle,
   ViewStyle,
+  useColorScheme,
 } from "react-native"
 import { colors, spacing, typography } from "../theme"
 import { Text, TextProps } from "./Text"
@@ -74,6 +75,13 @@ export interface ButtonProps extends PressableProps {
  * - [Documentation and Examples](https://github.com/infinitered/ignite/blob/master/docs/Components-Button.md)
  */
 export function Button(props: ButtonProps) {
+
+  const isDark = useColorScheme() === "dark"
+
+  const palette = useMemo(() => {
+    return isDark ? colors.dark : colors.light
+  }, [isDark])
+
   const {
     tx,
     text,
@@ -152,16 +160,15 @@ const $viewPresets = {
     $baseViewStyle,
     {
       borderWidth: 1,
-      borderColor: colors.palette.neutral400,
+      borderColor: colors.palette.neutral500,
       backgroundColor: colors.palette.neutral100,
     },
   ] as StyleProp<ViewStyle>,
 
-  filled: [$baseViewStyle, { backgroundColor: colors.palette.neutral300 }] as StyleProp<ViewStyle>,
+  filled: [$baseViewStyle, { backgroundColor: colors.palette.neutral500 }] as StyleProp<ViewStyle>,
 
   reversed: [
     $baseViewStyle,
-    { backgroundColor: colors.palette.neutral800 },
   ] as StyleProp<ViewStyle>,
 }
 
@@ -172,9 +179,9 @@ const $textPresets: Record<Presets, StyleProp<TextStyle>> = {
 }
 
 const $pressedViewPresets: Record<Presets, StyleProp<ViewStyle>> = {
-  default: { backgroundColor: colors.palette.neutral200 },
-  filled: { backgroundColor: colors.palette.neutral400 },
-  reversed: { backgroundColor: colors.palette.gradient1b },
+  default: { backgroundColor: colors.palette.neutral100 },
+  filled: { backgroundColor: colors.palette.neutral500 },
+  reversed: { backgroundColor: colors.palette.gradient1b, borderRadius: 30 },
 }
 
 const $pressedTextPresets: Record<Presets, StyleProp<TextStyle>> = {

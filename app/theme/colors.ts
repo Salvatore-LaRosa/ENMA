@@ -31,6 +31,10 @@ export const colors = {
    */
   transparent: "rgba(0, 0, 0, 0)",
   /**
+   * The default text color in many components.
+   */
+  text: palette.neutral500,
+  /**
    * Error messages.
    */
   error: palette.failure500,
@@ -39,9 +43,11 @@ export const colors = {
    *
    */
   errorBackground: palette.failure500,
+
+
   dark : {
     loginForm: palette.neutral900,
-    palette: palette.neutral900,
+    //palette: palette.neutral900,
     form: palette.neutral700,
     background: palette.neutral900,
     secondaryText: palette.neutral500,
