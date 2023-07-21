@@ -61,6 +61,7 @@ const SigninPin = (_props) => {
                 autoComplete="password"
                 autoCorrect={false}
                 keyboardType="decimal-pad"
+                maxLength={4}
                 helper={error}
                 status={error ? "error" : undefined}
                 secureTextEntry={isAuthPinHidden}

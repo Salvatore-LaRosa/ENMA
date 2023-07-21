@@ -143,6 +143,7 @@ export const BiometricAuthenticationScreen: FC<BiometricAuthenticationScreenProp
                     containerStyle={style.textField}
                     autoCapitalize="none"
                     autoComplete="password"
+                    maxLength={4}
                     autoCorrect={false}
                     secureTextEntry={isAuthPinHidden}
                     helper={errorOldPin}
