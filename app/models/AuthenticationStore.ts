@@ -4,26 +4,27 @@ export const AuthenticationStoreModel = types
   .model("AuthenticationStore")
   .props({
     authToken: types.maybe(types.string),
-    authPin: "",
+    loginPin: "",
     authEmail: "",
-    authOldPin: "",
+    signinPin: "",
   })
   .views((store) => ({
     get isAuthenticated() {
       return store.authToken != undefined
     },
     get isPinLenghtAuthenticated() {
-      return store.authOldPin.length === 4
+      return store.signinPin.length === 4
     },
     get validationPinError() {
-      if (store.authPin.length !== 4) return "deve contenere 4 numeri"
+      if (store.loginPin.length !== 4) return "deve contenere 4 numeri"
       return ""
     },
     get isValidated() {
-      return store.authPin === store.authOldPin
+      return store.loginPin === store.signinPin
     },
     get validationOldPinError() {
-      if (store.authPin !== store.authOldPin) return "Pin sbagliato, se non lo ricordi clicca su Reimposta il pin"
+      if (store.loginPin.length !== 4) return "deve contenere 4 numeri"
+      else if (store.loginPin !== store.signinPin) return "Pin sbagliato, se non lo ricordi clicca su Reimposta il pin"
       return ""
     },
     get validationEmailError() {
@@ -45,16 +46,16 @@ export const AuthenticationStoreModel = types
       store.authEmail = ""
     },
     reset() {
-      store.authOldPin = ""
+      store.signinPin = ""
       store.authToken = undefined
     },
-    setAuthPin(value?: string) {
-      store.authPin = value
-      console.log("AuthPin" + store.authPin)
+    setSigninPin(value?: string) {
+      store.signinPin = value
+      console.log("SigninPin" + store.signinPin)
     },
-    setAuthOldPin(value?: string) {
-      store.authOldPin = value
-      console.log("AuthOldPin" + store.authOldPin)
+    setLoginPin(value?: string) {
+      store.loginPin = value
+      console.log("LoginPin" + store.loginPin)
     }
   }))
 

@@ -21,20 +21,16 @@ interface BiometricAuthenticationScreenProps extends NativeStackScreenProps<AppS
 export const BiometricAuthenticationScreen: FC<BiometricAuthenticationScreenProps> = observer(function BiometricAuthenticationScreen(_props,) {
   const isDark = useColorScheme() === "dark"
 
-  const authPinInput = useRef<TextInput>()
   const authOldPinInput = useRef<TextInput>()
   const [isAuthPinHidden, setIsAuthPinHidden] = useState(true)
-
-  const [pin, setPin] = useState("")
-  const [oldPin, setOldPin] = useState("")
 
   const [isSubmitted, setIsSubmitted] = useState(false)
   const [attemptsCount, setAttemptsCount] = useState(0)
   const {
-    authenticationStore: { authPin, setAuthPin, validationPinError: validationPinError },
+    authenticationStore: { loginPin, setLoginPin, validationPinError: validationPinError },
   } = useStores()
   const {
-    authenticationStore: { authOldPin, setAuthOldPin, validationOldPinError: validationOldPinError },
+    authenticationStore: { signinPin, setSigninPin, validationOldPinError: validationOldPinError },
   } = useStores()
 
   const {
@@ -42,6 +38,7 @@ export const BiometricAuthenticationScreen: FC<BiometricAuthenticationScreenProp
   } = useStores()
 
   const [isBiometricSupported, setIsBiometricSupported] = useState(false);
+
   const {
     authenticationStore: { isPinLenghtAuthenticated: isPinAuthenticated },
   } = useStores()
@@ -49,8 +46,6 @@ export const BiometricAuthenticationScreen: FC<BiometricAuthenticationScreenProp
     authenticationStore: { isValidated: isValidated },
   } = useStores()
 
-
-  const error = isSubmitted ? validationPinError : ""
   const errorOldPin = isSubmitted ? validationOldPinError : ""
 
   const { navigation } = _props
@@ -62,6 +57,12 @@ export const BiometricAuthenticationScreen: FC<BiometricAuthenticationScreenProp
   const style = useMemo(() => {
     return getStyle(palette);
   }, [palette])
+
+  useEffect(() => {
+    return () => {
+      setLoginPin("")
+    }
+  }, [])
 
   // Check if hardware supports biometrics
   useEffect (() => {
@@ -77,25 +78,23 @@ export const BiometricAuthenticationScreen: FC<BiometricAuthenticationScreenProp
       fallbackLabel: "Enter Password",
     });
     auth.then(result => {
-      console.log(result);
+      console.log(result.success);
       if (result.success)
         navigation.navigate("Home" as "navigation");
     })  
     }, [])
 
   function pinLogin() {
-
-
-    setAuthPin(oldPin)
-
     setIsSubmitted(true)
     setAttemptsCount(attemptsCount + 1)
 
-    if (validationOldPinError) return
-    //if (validationPinError) return
+    setLoginPin(loginPin)
 
-    // Make a request to your server to get an authentication token.
-    // If successful, reset the fields and set the token.
+    if (validationPinError) return
+    if (validationOldPinError) return
+
+    setLoginPin("")
+
     setIsSubmitted(false)
     console.log("IsValidated: " + isValidated)
     if (isValidated) {
@@ -103,23 +102,10 @@ export const BiometricAuthenticationScreen: FC<BiometricAuthenticationScreenProp
     }
   }
 
-  function setPinFunction() {
-    setIsSubmitted(true)
-    setAttemptsCount(attemptsCount + 1)
-
-    
-
-    // Make a request to your server to get an authentication token.
-    // If successful, reset the fields and set the token.
-    setIsSubmitted(false)
-    setAuthOldPin(pin)
-  }
-
   return (
     <Screen
       preset="scroll"
       safeAreaEdges={["bottom"]}
-      style = {style.screen}
       backgroundColor={palette.loginForm}>
 
       <BackgroundImage/>
@@ -135,12 +121,12 @@ export const BiometricAuthenticationScreen: FC<BiometricAuthenticationScreenProp
                     testID="login-heading" 
                     tx="aprovedAuthenitcationScreen.title" 
                     preset="heading" 
-                    style={style.title} />
+                    style={style.title} 
+                  />
                   <TextField
                     ref={authOldPinInput}
-                    value={oldPin}
-                    onChangeText={setOldPin}
-                    containerStyle={style.textField}
+                    value={loginPin}
+                    onChangeText={setLoginPin}
                     autoCapitalize="none"
                     autoComplete="password"
                     maxLength={4}
@@ -152,14 +138,12 @@ export const BiometricAuthenticationScreen: FC<BiometricAuthenticationScreenProp
                     inputWrapperStyle={style.inputField}
                     keyboardType="decimal-pad"
                     LeftAccessory={
-                      (props) => <Icon 
-                        style={style.iconLeft}
+                      (props) => <Icon
                         icon="lock" 
                         containerStyle={props.style}
                       />
                     }
                   />
-
                   <LinearGradient
                     colors={[palette.buttonGradientStart, palette.buttonGradientEnd]}
                     start={ {x: 0, y: 0} }
@@ -172,17 +156,14 @@ export const BiometricAuthenticationScreen: FC<BiometricAuthenticationScreenProp
                         tx="aprovedAuthenitcationScreen.button"
                         preset="reversed"
                         onPress={pinLogin}
-                        style={style.tapButton}
                       />  
-                    </LinearGradient>
-
-                    <Text
+                  </LinearGradient>
+                  <Text
                     preset="subheading"
                     style={style.resetTitle}
                     onPress={reset}
                     tx="aprovedAuthenitcationScreen.resetPin"
-
-                    />
+                  />
                 </View>
             : <SigninPin/>
           }
@@ -196,59 +177,31 @@ export const BiometricAuthenticationScreen: FC<BiometricAuthenticationScreenProp
 
 function getStyle(palette) {
   return {
-    screen: {
-      backgroundColor: palette.loginForm,
-    },
-    rounded:{
-      width: 200,
-      height: 200,
-      borderRadius: 100,
-      backgroundColor: palette.loginForm,
-      transform: [{ scaleX: 2.5 }, { scaleY: 1}],
-      position: "absolute" as "absolute",
-      top: 400,
-      left: 100,
-    },
-
-    textField: {
-      marginBottom: 8,
-    },
     form: {
       backgroundColor: palette.loginForm, 
-      marginTop: 16,
-      paddingLeft: 32, 
-      paddingRight: 32, 
+      marginTop: spacing.md,
+      paddingLeft: spacing.xl, 
+      paddingRight: spacing.xl, 
       flex: 1,
       width: '100%', 
     },
     title: {
       color: palette.mainText,
       marginBottom: spacing.sm,
-      marginTop: 32,
+      marginTop: spacing.xl,
     },
     resetTitle: {
       textAlign: "center" as "center",
       color: palette.mainText,
       marginBottom: spacing.sm,
-      marginTop: 32,
+      marginTop: spacing.xl,
     },
     gradientButton: {
       borderRadius: 30,
-      marginTop: 32,
-    },
-    tapButton: {
-      borderRadius: 30,
-    },
-    iconLeft: {
-      marginLeft: 8,
+      marginTop: spacing.xl,
     },
     inputField: {
-      backgroundColor: palette.background,
-      borderRadius: 30,
-      marginBottom:8,
-      padding: 4,
-      borderWidth: 3,
-      borderColor: palette.border,
+      marginBottom: spacing.xs,
     }
   };
 }

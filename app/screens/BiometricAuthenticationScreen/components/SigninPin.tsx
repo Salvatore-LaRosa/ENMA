@@ -6,7 +6,7 @@ import React, { useMemo, useRef, useState } from "react"
 import { View, useColorScheme } from "react-native"
 import { TextInput } from "react-native-gesture-handler"
 
-const SigninPin = (_props) => {
+const SigninPin = () => {
 
     const isDark = useColorScheme() === "dark"
 
@@ -19,29 +19,23 @@ const SigninPin = (_props) => {
     }, [palette])
     
     const authPinInput = useRef<TextInput>()
-    const [isAuthPinHidden, setIsAuthPinHidden] = useState(true)
-    const [pin, setPin] = useState("")
+    const [isPinHidden, setIsPinHidden] = useState(true)
     const [isSubmitted, setIsSubmitted] = useState(false)
     const [attemptsCount, setAttemptsCount] = useState(0)
 
-    // TODO da controllare in futuro
     const {
-        authenticationStore: { authPin, setAuthPin, validationPinError: validationPinError },
-    } = useStores()
-    const {
-        authenticationStore: { authOldPin, setAuthOldPin, validationOldPinError: validationOldPinError },
+        authenticationStore: { signinPin, setSigninPin, validationOldPinError: validationOldPinError },
     } = useStores()
 
-    const error = isSubmitted ? validationPinError : ""
+    const error = isSubmitted ? validationOldPinError : ""
 
     function setPinFunction() {
         setIsSubmitted(true)
         setAttemptsCount(attemptsCount + 1)
     
-        // Make a request to your server to get an authentication token.
-        // If successful, reset the fields and set the token.
+        setSigninPin(signinPin)
+        
         setIsSubmitted(false)
-        setAuthOldPin(pin)
     }
     
 
@@ -55,8 +49,8 @@ const SigninPin = (_props) => {
             />
             <TextField
                 ref={authPinInput}
-                value={pin}
-                onChangeText={setPin}
+                value={signinPin}
+                onChangeText={setSigninPin}
                 autoCapitalize="none"
                 autoComplete="password"
                 autoCorrect={false}
@@ -64,7 +58,7 @@ const SigninPin = (_props) => {
                 maxLength={4}
                 helper={error}
                 status={error ? "error" : undefined}
-                secureTextEntry={isAuthPinHidden}
+                secureTextEntry={isPinHidden}
                 placeholderTx="refusedAuthenitcationScreen.pinFieldPlaceholder"
                 inputWrapperStyle={style.inputField}
                 LeftAccessory={

@@ -10,7 +10,7 @@ import { colors, spacing, typography } from "../theme"
 import { AppStackParamList, AppStackScreenProps } from "./AppNavigator"
 
 export type HomeTabParamList = {
-  Home: { queryIndex?: string; itemIndex?: string }
+  Home: undefined
 }
 
 /**
