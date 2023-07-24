@@ -5,11 +5,11 @@ import { NativeStackScreenProps } from "@react-navigation/native-stack"
 import { AppStackScreenProps } from "app/navigators"
 import { Button, Screen, Text } from "app/components"
 import { useStores } from "app/models"
+import { HomeTabScreenProps } from "app/navigators/Navigator"
 // import { useNavigation } from "@react-navigation/native"
 
-interface HomeScreenProps extends NativeStackScreenProps<AppStackScreenProps<"Home">> {}
-
-export const HomeScreen: FC<HomeScreenProps> = observer(function HomeScreen() {
+export const HomeScreen: FC<HomeTabScreenProps<"Home">> = 
+  function HomeScreen(_props) {
 
   const {
     authenticationStore: { logout },
@@ -30,7 +30,7 @@ export const HomeScreen: FC<HomeScreenProps> = observer(function HomeScreen() {
       />
     </Screen>
   )
-})
+}
 
 const $root: ViewStyle = {
   flex: 1,

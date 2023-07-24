@@ -90,7 +90,6 @@ export const BiometricAuthenticationScreen: FC<BiometricAuthenticationScreenProp
 
     setLoginPin(loginPin)
 
-    if (validationPinError) return
     if (validationOldPinError) return
 
     setLoginPin("")
