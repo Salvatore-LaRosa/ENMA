@@ -1,16 +1,29 @@
 import { BottomTabScreenProps, createBottomTabNavigator } from "@react-navigation/bottom-tabs"
 import { CompositeScreenProps } from "@react-navigation/native"
-import React from "react"
-import { TextStyle, ViewStyle } from "react-native"
+import React, { useMemo } from "react"
+import { useColorScheme } from "react-native"
 import { useSafeAreaInsets } from "react-native-safe-area-context"
-import { Icon } from "../components"
 import { translate } from "../i18n"
-import { HomeScreen } from "../screens"
-import { colors, spacing, typography } from "../theme"
+import { colors, spacing } from "../theme"
 import { AppStackParamList, AppStackScreenProps } from "./AppNavigator"
+
+// screens
+import { HomeScreen } from "../screens"
+import { PresenzeScreen } from "../screens"
+import { RimborsiScreen } from "../screens"
+import { ImpostazioniScreen } from "../screens"
+
+// SVG components
+import SvgHome from "app/components/Svg/SvgHome"
+import SvgSettings from "app/components/Svg/SvgSettings"
+import SvgRimborsi from "app/components/Svg/SvgRimborsi"
+import SvgPresenze from "app/components/Svg/SvgPresenze"
 
 export type HomeTabParamList = {
   Home: undefined
+  Presenze: undefined
+  Rimborsi: undefined
+  Impostazioni: undefined
 }
 
 /**
@@ -28,16 +41,25 @@ const Tab = createBottomTabNavigator<HomeTabParamList>()
 export function Navigator() {
   const { bottom } = useSafeAreaInsets()
 
+  const isDark = useColorScheme() === "dark"
+
+  const palette = useMemo(() => {
+    return isDark ? colors.dark : colors.light
+  }, [isDark])
+
+  const style = useMemo(() => {
+    return getStyle(palette);
+  }, [palette])
+
   return (
     <Tab.Navigator
       screenOptions={{
         headerShown: false,
         tabBarHideOnKeyboard: true,
-        tabBarStyle: [$tabBar, { height: bottom + 70 }],
-        tabBarActiveTintColor: colors.palette.neutral500,
+        tabBarStyle: [style.tabBar, { marginBottom: bottom + 40 }],
+        tabBarActiveTintColor: isDark ? colors.dark.buttonGradientStart : colors.light.buttonGradientStart,
         tabBarInactiveTintColor: colors.palette.neutral500,
-        tabBarLabelStyle: $tabBarLabel,
-        tabBarItemStyle: $tabBarItem,
+        tabBarLabelStyle: style.tabBarLabel,
       }}
     >
       <Tab.Screen
@@ -45,30 +67,59 @@ export function Navigator() {
         component={HomeScreen}
         options={{
           tabBarIcon: ({ focused }) => (
-            <Icon icon="home" color={focused && colors.palette.neutral900} size={30} />
+            <SvgHome color={isDark? focused && colors.dark.buttonGradientStart : focused && colors.light.buttonGradientStart} />
+          ),
+        }}
+      />
+      <Tab.Screen
+        name="Presenze"
+        component={PresenzeScreen}
+        options={{
+          tabBarIcon: ({ focused }) => (
+            <SvgPresenze color={isDark? focused && colors.dark.buttonGradientStart : focused && colors.light.buttonGradientStart} />
+          ),
+        }}
+      />
+      <Tab.Screen
+        name="Rimborsi"
+        component={RimborsiScreen}
+        options={{
+          tabBarIcon: ({ focused }) => (
+            <SvgRimborsi color={isDark? focused && colors.dark.buttonGradientStart : focused && colors.light.buttonGradientStart}/>
+          ),
+        }}
+      />
+      <Tab.Screen
+        name="Impostazioni"
+        component={ImpostazioniScreen}
+        options={{
+          tabBarIcon: ({ focused }) => (
+            <SvgSettings color={isDark? focused && colors.dark.buttonGradientStart : focused && colors.light.buttonGradientStart}/>
           ),
         }}
       />
 
-      
     </Tab.Navigator>
   )
 }
 
-const $tabBar: ViewStyle = {
-  backgroundColor: colors.palette.neutral100,
-  borderTopColor: colors.transparent,
+function getStyle(palette) {
+  return {
+    tabBar: {
+      position: "absolute" as "absolute",
+      backgroundColor: palette.form, 
+      borderTopColor: colors.transparent,
+      borderRadius: 30,
+      paddingBottom: 0,
+      paddingEnd: spacing.md,
+      paddingStart: spacing.md,
+      marginEnd: spacing.xl,
+      marginStart: spacing.xl,
+      height: 60
+    },
+    tabBarLabel: {
+      color: colors.transparent,
+      lineHeight: 1,
+    },
+  };
 }
-
-const $tabBarItem: ViewStyle = {
-  paddingTop: spacing.md,
-}
-
-const $tabBarLabel: TextStyle = {
-  fontSize: 12,
-  fontFamily: typography.primary.medium,
-  lineHeight: 16,
-  flex: 1,
-}
-
-// @demo remove-file

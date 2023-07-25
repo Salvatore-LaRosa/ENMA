@@ -1,4 +1,4 @@
-import React, { ReactElement } from "react"
+import React, { ReactElement, useMemo } from "react"
 import {
   StyleProp,
   TextStyle,
@@ -6,6 +6,7 @@ import {
   TouchableOpacityProps,
   View,
   ViewStyle,
+  useColorScheme,
 } from "react-native"
 import { isRTL, translate } from "../i18n"
 import { colors, spacing } from "../theme"
@@ -143,8 +144,19 @@ interface HeaderActionProps {
  * - [Documentation and Examples](https://github.com/infinitered/ignite/blob/master/docs/Components-Header.md)
  */
 export function Header(props: HeaderProps) {
+
+  const isDark = useColorScheme() === "dark"
+
+  const palette = useMemo(() => {
+      return isDark ? colors.dark : colors.light
+  }, [isDark])
+
+  const style = useMemo(() => {
+      return getStyle(palette);
+  }, [palette])
+
   const {
-    backgroundColor = colors.background,
+    backgroundColor = isDark ? colors.dark.background : colors.light.background,
     LeftActionComponent,
     leftIcon,
     leftIconColor,
@@ -175,8 +187,8 @@ export function Header(props: HeaderProps) {
   const titleContent = titleTx ? translate(titleTx, titleTxOptions) : title
 
   return (
-    <View style={[$container, $containerInsets, { backgroundColor }, $containerStyleOverride]}>
-      <View style={[$wrapper, $styleOverride]}>
+    <View style={[style.container, $containerInsets, { backgroundColor }, $containerStyleOverride]}>
+      <View style={[style.wrapper, $styleOverride]}>
         <HeaderAction
           tx={leftTx}
           text={leftText}
@@ -191,8 +203,8 @@ export function Header(props: HeaderProps) {
         {!!titleContent && (
           <View
             style={[
-              titleMode === "center" && $titleWrapperCenter,
-              titleMode === "flex" && $titleWrapperFlex,
+              titleMode === "center" && style.titleWrapperCenter,
+              titleMode === "flex" && style.titleWrapperFlex,
               $titleContainerStyleOverride,
             ]}
             pointerEvents="none"
@@ -201,7 +213,7 @@ export function Header(props: HeaderProps) {
               weight="medium"
               size="md"
               text={titleContent}
-              style={[$title, $titleStyleOverride]}
+              style={[style.title, $titleStyleOverride]}
             />
           </View>
         )}
@@ -222,6 +234,16 @@ export function Header(props: HeaderProps) {
 }
 
 function HeaderAction(props: HeaderActionProps) {
+  const isDark = useColorScheme() === "dark"
+
+  const palette = useMemo(() => {
+      return isDark ? colors.dark : colors.light
+  }, [isDark])
+
+  const style = useMemo(() => {
+      return getStyle(palette);
+  }, [palette])
+
   const { backgroundColor, icon, text, tx, txOptions, onPress, ActionComponent, iconColor } = props
 
   const content = tx ? translate(tx, txOptions) : text
@@ -231,12 +253,12 @@ function HeaderAction(props: HeaderActionProps) {
   if (content) {
     return (
       <TouchableOpacity
-        style={[$actionTextContainer, { backgroundColor }]}
+        style={[style.actionTextContainer, { backgroundColor }]}
         onPress={onPress}
         disabled={!onPress}
         activeOpacity={0.8}
       >
-        <Text weight="medium" size="md" text={content} style={$actionText} />
+        <Text weight="bold" size="xl" text={content} style={style.actionText} />
       </TouchableOpacity>
     )
   }
@@ -244,71 +266,67 @@ function HeaderAction(props: HeaderActionProps) {
   if (icon) {
     return (
       <Icon
-        size={24}
+        size={50}
         icon={icon}
         color={iconColor}
         onPress={onPress}
-        containerStyle={[$actionIconContainer, { backgroundColor }]}
+        containerStyle={[style.actionIconContainer, { backgroundColor }]}
         style={isRTL ? { transform: [{ rotate: "180deg" }] } : {}}
       />
     )
   }
 
-  return <View style={[$actionFillerContainer, { backgroundColor }]} />
+  return <View style={[style.actionFillerContainer, { backgroundColor }]} />
 }
 
-const $wrapper: ViewStyle = {
-  height: 56,
-  flexDirection: "row",
-  alignItems: "center",
-  justifyContent: "space-between",
-}
-
-const $container: ViewStyle = {
-  width: "100%",
-}
-
-const $title: TextStyle = {
-  textAlign: "center",
-}
-
-const $actionTextContainer: ViewStyle = {
-  flexGrow: 0,
-  alignItems: "center",
-  justifyContent: "center",
-  height: "100%",
-  paddingHorizontal: spacing.md,
-  zIndex: 2,
-}
-
-const $actionText: TextStyle = {
-  color: colors.tint,
-}
-
-const $actionIconContainer: ViewStyle = {
-  flexGrow: 0,
-  alignItems: "center",
-  justifyContent: "center",
-  height: "100%",
-  paddingHorizontal: spacing.md,
-  zIndex: 2,
-}
-
-const $actionFillerContainer: ViewStyle = {
-  width: 16,
-}
-
-const $titleWrapperCenter: ViewStyle = {
-  alignItems: "center",
-  justifyContent: "center",
-  height: "100%",
-  width: "100%",
-  position: "absolute",
-  paddingHorizontal: spacing.xxl,
-  zIndex: 1,
-}
-
-const $titleWrapperFlex: ViewStyle = {
-  justifyContent: "center",
-  flexGrow: 1,
+function getStyle(palette) {
+  return {
+    wrapper: {
+      height: 80,
+      flexDirection: "row" as "row",
+      alignItems: "center" as "center",
+      justifyContent: "space-between" as "space-between",
+    }, 
+    container: {
+      width: "100%",
+    },
+    title: {
+      textAlign: "center" as "center",
+    },
+    actionTextContainer: {
+      flexGrow: 0,
+      alignItems: "center" as "center",
+      justifyContent: "center" as "center",
+      height: "100%",
+      paddingHorizontal: spacing.xs,
+      zIndex: 2,
+    },
+    actionText: {
+      color: palette.mainText,      
+    }, 
+    actionIconContainer: {
+      flexGrow: 0,
+      alignItems: "center" as "center",
+      justifyContent: "center" as "center",
+      height: "100%",
+      paddingHorizontal: spacing.xs,
+      zIndex: 2,
+    }, 
+    actionFillerContainer: {
+      width: 16,
+    },
+    titleWrapperCenter: {
+      alignItems: "center" as "center",
+      justifyContent: "center" as "center",
+      height: "100%",
+      width: "100%",
+      position: "absolute" as "absolute",
+      paddingHorizontal: spacing.xxl,
+      zIndex: 1,
+    },
+    titleWrapperFlex: {
+      justifyContent: "center" as "center",
+      flexGrow: 1,
+    }
+  };
 }

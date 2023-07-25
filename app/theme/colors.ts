@@ -3,7 +3,7 @@ const palette = {
   neutral50: "#F9FBFC",
   neutral100: "#E7EAF0",
   neutral500: "#85898F",
-  neutral700: "#414349",
+  neutral800: "#21212B",
   neutral900: "#181820",
 
   primary400: "#3667C6",
@@ -48,11 +48,11 @@ export const colors = {
   dark : {
     loginForm: palette.neutral900,
     //palette: palette.neutral900,
-    form: palette.neutral700,
+    form: palette.neutral800,
     background: palette.neutral900,
     secondaryText: palette.neutral500,
     mainText: palette.neutral50,
-    border: palette.neutral700,
+    border: palette.neutral800,
     buttonGradientStart: palette.gradient2a,
     buttonGradientEnd: palette.gradient2b,
   },

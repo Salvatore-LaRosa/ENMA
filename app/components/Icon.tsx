@@ -85,11 +85,10 @@ export function Icon(props: IconProps) {
 }
 
 export const iconRegistry = {
-  user: require("../../assets/icons/user.png"),
-  lock: require("../../assets/icons/passwLock.png"),
   hidden: require("../../assets/icons/hidden.png"),
   view: require("../../assets/icons/view.png"),
-  home: require("../../assets/icons/Home.png"),
+
+  profilo: require("../../assets/icons/ProfileImage.png"),
 }
 
 const $imageStyle: ImageStyle = {

@@ -6,15 +6,17 @@ import { NativeStackScreenProps } from "@react-navigation/native-stack"
 import { AppStackScreenProps } from "app/navigators"
 import { api } from "app/services/api"
 import { useColorScheme } from 'react-native';
-
-// import { useNavigation } from "@react-navigation/native"
 import { useStores } from "app/models"
 import { colors, spacing } from "app/theme"
-
 import { LinearGradient } from 'expo-linear-gradient';
 
+// Components
 import BackgroundImage from "../../components/BackgroundImage"
 import BackgroundForm from "../../components/RoundedForm"
+
+// Svg Components
+import SvgUser from "app/components/Svg/SvgUser"
+import SvgPassword from "app/components/Svg/SvgPassword"
 
 interface LoginScreenProps extends NativeStackScreenProps<AppStackScreenProps<"Login">> {}
 
@@ -109,9 +111,8 @@ export const LoginScreen: FC<LoginScreenProps> = observer(function LoginScreen()
             onSubmitEditing={() => authPasswordInput.current?.focus()}
             inputWrapperStyle={style.inputField}
             LeftAccessory={
-              (props) => <Icon 
-                icon="user" 
-                containerStyle={props.style} 
+              (props) => <SvgUser
+                style={style.icon} 
               />
             } 
           />
@@ -129,9 +130,8 @@ export const LoginScreen: FC<LoginScreenProps> = observer(function LoginScreen()
             RightAccessory={PasswordRightAccessory}
             inputWrapperStyle={style.inputField}
             LeftAccessory={
-              (props) => <Icon 
-                icon="lock" 
-                containerStyle={props.style}
+              (props) => <SvgPassword
+                style={style.icon}
               />
             }
           />
@@ -175,6 +175,10 @@ function getStyle(palette) {
     },
     inputField: {
       marginBottom: spacing.xs,
+    }, 
+    icon: {
+      marginTop: spacing.sm,
+      marginStart: spacing.sm,
     }
   };
 }

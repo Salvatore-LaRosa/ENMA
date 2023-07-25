@@ -7,6 +7,7 @@ export const AuthenticationStoreModel = types
     loginPin: "",
     authEmail: "",
     signinPin: "",
+    lang: types.maybe(types.string)
   })
   .views((store) => ({
     get isAuthenticated() {
@@ -33,6 +34,9 @@ export const AuthenticationStoreModel = types
         return "must be a valid email address"
       return ""
     },
+    get language() {
+      return store.lang;
+    }
   }))
   .actions((store) => ({
     setAuthToken(value?: string) {
@@ -56,6 +60,12 @@ export const AuthenticationStoreModel = types
     setLoginPin(value?: string) {
       store.loginPin = value
       console.log("LoginPin" + store.loginPin)
+    },
+    setLanguage(value: string, _props) {
+      const { navigation } = _props
+      store.lang = value
+      console.log("Language: " + store.lang)
+      navigation.goBack()
     }
   }))
 

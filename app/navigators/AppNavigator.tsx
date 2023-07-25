@@ -39,8 +39,11 @@ export type AppStackParamList = {
   Login: undefined
 	Home: NavigatorScreenParams<HomeTabParamList>
 	BiometricAuthentication: undefined
+	Presenze: undefined
+	Inpostazioni: undefined
 	Impostazioni: undefined
 	Rimborsi: undefined
+	Language: undefined
 	// IGNITE_GENERATOR_ANCHOR_APP_STACK_PARAM_LIST
 }
 
@@ -70,7 +73,9 @@ const AppStack = observer(function AppStack() {
       {isAuthenticated ? (
         <>
         	<Stack.Screen name="BiometricAuthentication" component={Screens.BiometricAuthenticationScreen} />
-          <Stack.Screen name="Home" component={Screens.HomeScreen} />
+          <Stack.Screen name="Home" component={Navigator} />
+
+			    
         </>
       ) : (
         <>
@@ -79,9 +84,7 @@ const AppStack = observer(function AppStack() {
       )}
 
       {/** 🔥 Your screens go here */}
-      
-			<Stack.Screen name="Impostazioni" component={Screens.ImpostazioniScreen} />
-			<Stack.Screen name="Rimborsi" component={Screens.RimborsiScreen} />
+      <Stack.Screen name="Language" component={Screens.LanguageScreen} />
 			{/* IGNITE_GENERATOR_ANCHOR_APP_STACK_SCREENS */}
     </Stack.Navigator>
   )
@@ -101,7 +104,7 @@ export const AppNavigator = observer(function AppNavigator(props: NavigationProp
       theme={colorScheme === "dark" ? DarkTheme : DefaultTheme}
       {...props}
     >
-    <AppStack />
+      <AppStack />
     </NavigationContainer>
   )
 })
