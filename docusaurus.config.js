@@ -18,8 +18,8 @@ const config = {
 
   // GitHub pages deployment config.
   // If you aren't using GitHub pages, you don't need these.
-  organizationName: 'Sirius s.r.l.', // Usually your GitHub org/user name.
-  projectName: 'VireoXgestionaleAPP', // Usually your repo name.
+  organizationName: 'Salvatore-LaRosa', // Usually your GitHub org/user name.
+  projectName: 'ENMA', // Usually your repo name.
 
   onBrokenLinks: 'throw',
   onBrokenMarkdownLinks: 'warn',
