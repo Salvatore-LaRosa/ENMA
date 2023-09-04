@@ -4,6 +4,8 @@ sidebar_position: 2
 
 # Pagina di Autenticazione
 
+![Immagine di esempio](/img/bannerCredenziali.png)
+
 Pagina dedicata al riconoscimento delle **credenziali biometriche** o al riconoscimento del **pin** per poter accedere alla propria area riservata.
 
 ## Primo Accesso

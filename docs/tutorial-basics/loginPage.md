@@ -12,7 +12,7 @@ Sarà visualizzata dall'utente solo per il primo avvio, dopo la prima volta il *
 
 ## Gestione Requisiti
 
-La piattaforma richiede **e-mail** e **password** per eseguire l'autentizazione dell'utente da inserire negli appositi TextField con presenti dei PlaceHolder per far capire a quale valore corrispondono.
+La piattaforma richiede **e-mail** e **password** per eseguire l'autentizazione dell'utente da inserire negli appositi campi di testo con presenti i nomi dei relativi campi per far capire a quale valore corrispondono.
 
 Prima di effettuare la richiesta, controllerà che entrambe le credenziali siano state opportunamente inserite e, in **caso di errore**, visualizzerà un messaggio per far capire all'utente  cosa ha sbagliato.
 

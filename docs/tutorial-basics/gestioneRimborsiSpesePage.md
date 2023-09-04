@@ -8,7 +8,9 @@ sidebar_position: 5
 
 Pagina dedicata alla visualizzazione dettagialta di tutte le spese lavorative effettuate.
 
-## Struttura della Pagina Principale
+## Struttura della Pagina Nota Spese
+
+![Immagine di esempio](/img/bannerRimborsi.png)
 
 Essa è strutturata con:
 
@@ -16,7 +18,10 @@ Essa è strutturata con:
 - elenco di schede per ogni spesa effettuata;
 - floating button per poter aggiungere una nuova spesa da rimborsare;
 
-## Struttura della Pagina Secondaria
+## Struttura della Pagina Aggiunta Nota Spese
+
+
+![Immagine di esempio](/img/bannerAddRimborso.png)
 
 L'untente potrà aggiungere una nuova spesa da rimborsare tramite apposita scheda, essa è composta da:
 

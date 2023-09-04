@@ -16,12 +16,12 @@ La HomePage è impostata con:
 
 - scheda che rappresenta un resoconto del mese atttuale di:
 
-    - Spese tramite carta di credito,
-    - Ore di volo trascorse,
+    - Ore timbrate,
+    - Ore di trasferta,
     - Ore di ferie,
-    - Ore di presenze,
-    - 
-    - 
+    - Ore previste,
+    - Ore di Permesso
+    - Ore di malattia
 
 - scheda per la visualizzazione del totale del mese da rimborsare;
 - scheda della bacheca in cui potà visualizzare tutte le informazioni di servizio;

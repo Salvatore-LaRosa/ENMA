@@ -12,11 +12,11 @@ L'app è compatibile con tutti i dispositivi **Android** e **IOS** ed è svilupp
 
 ### Primo Accesso
 
-L'utente, dopo il caricamento della ***loadingPage***, visualizzerà la ***loginPage*** in cui dovrà inserire le credenziali Sirius (e-mail e password) per poter accedere alla sua area riservata.
+L'utente, dopo il caricamento della ***pagina di Caricamento***, potrà effettuare il ***login*** tramite le credenziali Sirius (e-mail e password) per poter accedere alla sua area riservata.
 
-Se le credenziali saranno corrette verrà rimandato alla pagina ***BiometricAuthenticationScreen*** dove potrà scegliere se accettare i permessi sul riconoscimento biometrico e di registrare il suo pin composto da 4 numeri.
+Se le credenziali saranno corrette verrà rimandato alla ***pagina di riconoscimento*** dove potrà scegliere se accettare i permessi sul riconoscimento facciale o tramite impronta e di registrare il suo pin composto da 4 numeri.
 
-Una volta correttamente inseriti verrà rimandato alla ***HomePage*** qui vedrà un placeHolder di come la pagina sarà effettuata in futuro, in basso avrà la barra di navigazione composta da:
+Una volta correttamente inseriti verrà rimandato alla ***Home*** qui vedrà una pagina di come la pagina sarà effettuata in futuro, in basso avrà la barra di navigazione composta da:
 
 - HomePage, 
 - Gestione delle Presenze (atttualmente vuota e non sarà implementata al rilascio), 
@@ -25,9 +25,9 @@ Una volta correttamente inseriti verrà rimandato alla ***HomePage*** qui vedrà
 
 ### Dopo il Primo Accessso
 
-L'utente, **dopo aver effettuato il primo accesso**, non visualizzerà più la loginPage ma verrà riportato direttamente alla pagina ***BiometricAuthenticationScreen*** dove, se accettato in precedenza, potrà inserire le credenziali biometriche oppure inserire il pin precedentemente impostate. 
+L'utente, **dopo aver effettuato il primo accesso**, non dovrà più effettuare il login ma verrà riportato direttamente alla ***pagina di riconoscimento*** dove, se accettato in precedenza, potrà accedere tramite riconoscimento facciale o impronta digitale oppure inserire il pin precedentemente impostati. 
 
-Nel caso in cui non dovesse più **ricorsarsi il pin** utilizzzato allora potrà ritornare alla loginPage dove potrà, dopo aver reinserito le sue credenziali di accesso, impostare un nuovo pin.
+Nel caso in cui non dovesse più **ricordarsi il pin** utilizzzato allora potrà ritornare alla pagina di login dove potrà, dopo aver reinserito le sue credenziali di accesso, impostare un nuovo pin.
 
 
 ## Design Consideration

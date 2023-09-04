@@ -4,11 +4,13 @@ sidebar_position: 6
 
 # Impostazioni
 
+![Immagine di esempio](/img/bannerImpostazioni.png)
+
 ## Struttura della Pagina
 
 Essa è suddivisa in diverse categorie: 
 
-- Profil, dove si potrà cambiare l'immagine di profilo presente in tutte le schermate, l'untente potrà sempre scegliere se:
+- Profilo, dove si potrà cambiare l'immagine di profilo presente in tutte le schermate, l'untente potrà sempre scegliere se:
     
     - scattare una foto tramite fotocamera,
     - caricare una foto già presente nella libreria,
