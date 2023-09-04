@@ -1,4 +1,5 @@
 import { Button, TextField, Text, Icon } from "app/components"
+import SvgPassword from "app/components/Svg/SvgPassword"
 import { useStores } from "app/models"
 import { colors, spacing } from "app/theme"
 import { LinearGradient } from "expo-linear-gradient"
@@ -62,9 +63,8 @@ const SigninPin = () => {
                 placeholderTx="refusedAuthenitcationScreen.pinFieldPlaceholder"
                 inputWrapperStyle={style.inputField}
                 LeftAccessory={
-                    (props) => <Icon 
-                        icon="lock" 
-                        containerStyle={props.style}
+                    (props) => <SvgPassword
+                    style={style.icon}
                     />
                 }
             />
@@ -108,7 +108,11 @@ function getStyle(palette) {
             color: palette.mainText,
             marginBottom: spacing.sm,
             marginTop: spacing.xl,
-        },
+        }, 
+        icon: {
+          marginTop: spacing.sm,
+          marginStart: spacing.sm,
+        }
     };
   }
   

@@ -44,6 +44,7 @@ export type AppStackParamList = {
 	Impostazioni: undefined
 	Rimborsi: undefined
 	Language: undefined
+	AggiungiRimborso: undefined
 	// IGNITE_GENERATOR_ANCHOR_APP_STACK_PARAM_LIST
 }
 
@@ -74,8 +75,8 @@ const AppStack = observer(function AppStack() {
         <>
         	<Stack.Screen name="BiometricAuthentication" component={Screens.BiometricAuthenticationScreen} />
           <Stack.Screen name="Home" component={Navigator} />
-
-			    
+          <Stack.Screen name="Language" component={Screens.LanguageScreen} />
+			    <Stack.Screen name="AggiungiRimborso" component={Screens.AggiungiRimborsoScreen} />
         </>
       ) : (
         <>
@@ -84,7 +85,6 @@ const AppStack = observer(function AppStack() {
       )}
 
       {/** 🔥 Your screens go here */}
-      <Stack.Screen name="Language" component={Screens.LanguageScreen} />
 			{/* IGNITE_GENERATOR_ANCHOR_APP_STACK_SCREENS */}
     </Stack.Navigator>
   )

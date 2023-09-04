@@ -4,6 +4,7 @@ const en = {
     cancel: "Cancel",
     back: "Back",
   },
+
   loginScreen: {
     title: "ENMA",
     emailFieldPlaceholder: "Username",
@@ -11,15 +12,52 @@ const en = {
     tapToSignIn: "Login",
   },
   aprovedAuthenitcationScreen: {
-    title: "Bentornato ",
+    title: "Welcom Back ",
     pinFieldPlaceholder: "Pin",
-    button: "Accedi",
-    resetPin: "Reimposta il pin"
+    button: "Login",
+    resetPin: "Reset pin"
   },
   refusedAuthenitcationScreen: {
     title: "Insercisci il pin",
     pinFieldPlaceholder: "Pin",
     button: "Accedi"
+  },
+  homeScreen: {
+    header: "Home",
+    statsTitle: "Time (Dec)",
+    refoundTitle: "Refound (Dec)",
+    boardTitle: "WatchBoard",
+    boardSubTitle1: "Welfare regulation 2022",
+    boardText1: "The 2022 welfare regulation is attached: Welfare2022.pdf",
+    boardSubTitle2: "Covid 19 - Company Provisions",
+    boardText2: "Covid AZ Rev 09.pdf\nAttachment 2: Rules to be respected.pdf",
+    button: "Look at the calendar"
+  },
+  impostazioniScreen: {
+    header: "Settings",
+    title1: "Generals",
+    languageTitle: "Language",
+    title2: "Sistem",
+    logoutTitle: "Logout",
+    profileTitle: "Profile picture",
+    title3: "Profile",
+  },
+  rimborsiScreen: {
+    header: "Exspences Refound",
+    placeHolder: "Search",
+    textLeft: "Refounds: ",
+    textRight: "Total: ",
+  },
+  addRimborsiScreen: {
+    header: "Add Refound",
+    loadPhotoTitle: "Upload Image",
+    order: "Order",
+    categories: "Categories",
+    placeholderCategories: "443,45",
+    amount: "Amount",
+    placeholderAmount: "500 €",
+    note: "Note",
+    placeholderNote: "Add Note",
   },
   errorScreen: {
     title: "Something went wrong!",

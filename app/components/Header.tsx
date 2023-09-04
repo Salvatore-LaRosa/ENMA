@@ -289,6 +289,7 @@ function getStyle(palette) {
     }, 
     container: {
       width: "100%",
+      marginBottom: spacing.lg
     },
     title: {
       textAlign: "center" as "center",

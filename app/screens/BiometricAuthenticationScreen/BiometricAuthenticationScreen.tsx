@@ -15,6 +15,7 @@ import { TextInput, TouchableHighlight } from "react-native-gesture-handler"
 import { StatusBar } from "expo-status-bar"
 import { LinearGradient } from "expo-linear-gradient"
 import SigninPin from "./components/SigninPin"
+import SvgPassword from "app/components/Svg/SvgPassword"
 
 interface BiometricAuthenticationScreenProps extends NativeStackScreenProps<AppStackScreenProps<"BiometricAuthentication">> {}
 
@@ -137,9 +138,8 @@ export const BiometricAuthenticationScreen: FC<BiometricAuthenticationScreenProp
                     inputWrapperStyle={style.inputField}
                     keyboardType="decimal-pad"
                     LeftAccessory={
-                      (props) => <Icon
-                        icon="lock" 
-                        containerStyle={props.style}
+                      (props) => <SvgPassword
+                      style={style.icon}
                       />
                     }
                   />
@@ -201,6 +201,10 @@ function getStyle(palette) {
     },
     inputField: {
       marginBottom: spacing.xs,
+    }, 
+    icon: {
+      marginTop: spacing.sm,
+      marginStart: spacing.sm,
     }
   };
 }

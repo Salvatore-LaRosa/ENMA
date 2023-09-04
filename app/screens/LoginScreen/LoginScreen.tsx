@@ -137,10 +137,11 @@ export const LoginScreen: FC<LoginScreenProps> = observer(function LoginScreen()
           />
 
           <LinearGradient
-          colors={[palette.buttonGradientStart, palette.buttonGradientEnd]}
-          start={ {x: 0, y: 0} }
-          end={ {x: 0, y: 1} }
-          style={style.gradientButton}>
+            colors={[palette.buttonGradientStart, palette.buttonGradientEnd]}
+            start={ {x: 0, y: 0} }
+            end={ {x: 0, y: 1} }
+            style={style.gradientButton}
+          >
             <Button
               pressedStyle={{backgroundColor: palette.buttonGradientEnd}}
               testID="login-button"

@@ -1,21 +1,38 @@
-import React, { FC, useMemo, Component, useState } from "react"
+import React, { FC, useMemo, Component, useState, useRef } from "react"
 import { observer } from "mobx-react-lite"
-import { View, useColorScheme } from "react-native"
+import { Image, Platform, View, useColorScheme, useWindowDimensions } from "react-native"
 import { NativeStackScreenProps } from "@react-navigation/native-stack"
 import { AppStackScreenProps } from "app/navigators"
-import { Button, Screen, Text, Header, Card } from "app/components"
+import { Button, Screen, Text, Header, Card, ProfileImage, Icon } from "app/components"
 import { useStores } from "app/models"
 import { colors, spacing } from "app/theme"
+
+import "react-native-gesture-handler";
+import { BottomSheetModal , BottomSheetModalProvider} from '@gorhom/bottom-sheet'
+import { GestureHandlerRootView } from "react-native-gesture-handler"
+import { translate } from "../../i18n"
+import it from "../../i18n/it"
+import en from "../../i18n/en"
+
 import { Picker } from "@react-native-picker/picker";
+
 
 // Svg components
 import SvgTranslate from "app/components/Svg/SvgTranslate"
 import SvgRow from "app/components/Svg/SvgRow"
 import SvgLogout from "app/components/Svg/SvgLogout"
+import { StatusBar } from "expo-status-bar"
+import Language from "./Components/Language"
+import I18n from "i18n-js"
+import { locale } from "expo-localization"
 
 interface ImpostazioniScreenProps extends NativeStackScreenProps<AppStackScreenProps<"Impostazioni">> {}
 
 export const ImpostazioniScreen: FC<ImpostazioniScreenProps> = observer(function ImpostazioniScreen(_props) {
+  I18n.fallbacks = true
+  I18n.translations = {it, en}
+  I18n.locale = locale
+
   const {
     authenticationStore: { logout },
   } = useStores()
@@ -30,8 +47,6 @@ export const ImpostazioniScreen: FC<ImpostazioniScreenProps> = observer(function
       return getStyle(palette);
   }, [palette])
 
-  const [selectedLanguage, setSelectedLanguage] = useState();
-
   const { navigation } = _props
 
   function goLanguage() {
@@ -42,74 +57,59 @@ export const ImpostazioniScreen: FC<ImpostazioniScreenProps> = observer(function
     authenticationStore: { language, setLanguage},
   } = useStores()
 
+  const {
+    authenticationStore : {profileImage, setProfileImage}
+  } = useStores()
+
   return (
+    <GestureHandlerRootView style={{ flex: 1 }}>
+      <BottomSheetModalProvider>
     <Screen style={style.screen} preset="scroll">
 
       <Header
-        leftText="Impostazioni"
-        rightIcon="profilo"
-      />
+        leftTx="impostazioniScreen.header"
+        RightActionComponent={
+          <View>
+            {profileImage===""?
+            <Icon icon="profilo"/>
+            :  profileImage && <Image source={{ uri: profileImage }} style={{ width: 50, height: 50, borderRadius:25 }} />
 
-      <Text 
-        text="Generale"
-        preset="bold"
-        style={style.title}
-      />
-      <Card
-        style={style.card}
-        heading="Lingua"
-        headingStyle={style.headingCard}
-        ContentComponent={
-          <View
-            style={style.view}
-          >
-            <SvgTranslate style={style.icon}/>
-            <Text
-              text={language}
-              style={style.textCard}
-            />
+          }
+            
           </View>
         }
-        RightComponent={
-          <SvgRow
-            style={style.row}
-            onPress={goLanguage}
-          />
-        }
-      >
-      </Card>
-      
-      <Card
-        style={style.card}
-        heading="Lingua"
-        headingStyle={style.headingCard}
-        ContentComponent={
-          <Picker
-            selectedValue={selectedLanguage}
-            onValueChange={(itemValue, itemIndex) =>
-              setSelectedLanguage(itemValue)
-            }>
-            <Picker.Item label="Italiano (Italia)" value="italian" />
-            <Picker.Item label="English (UK)" value="English" />
-          </Picker>
-        }
-      >
-      </Card>
-
+      />
 
       <Text 
-        text="Sistema"
+        tx="impostazioniScreen.title3"
+        preset="bold"
+        style={style.title}
+      />
+
+      <ProfileImage/>
+
+      <Text 
+        tx="impostazioniScreen.title1"
+        preset="bold"
+        style={style.title}
+      />
+
+      <Language/>
+
+      <Text 
+        tx="impostazioniScreen.title2"
         preset="bold"
         style={style.title}
       />
       <Card
         style={style.card}
+        onPress={logout}
         LeftComponent={
           <View
             style={style.view}
           >
             <Text
-              text="Esci"
+              tx="impostazioniScreen.logoutTitle"
               style={style.logoutCard}
               preset="subheading"
             />
@@ -118,17 +118,25 @@ export const ImpostazioniScreen: FC<ImpostazioniScreenProps> = observer(function
         RightComponent={
           <SvgLogout
             style={style.logout}
-            onPress={logout}
           />
         }
       >
       </Card>
     </Screen>
+
+    </BottomSheetModalProvider>
+    </GestureHandlerRootView>
   )
 })
 
 function getStyle(palette) {
   return {
+    container: {
+      flex: 1,
+      backgroundColor: "gray",
+      alignItems: "center" as "center",
+      justifyContent: "center" as "center",
+    },
     screen: {
       paddingTop: -spacing.xl,
       padding: spacing.xl,
@@ -141,7 +149,6 @@ function getStyle(palette) {
     title: {
       fontSize: 20,
       paddingBottom: spacing.xs,
-      paddingTop: spacing.xs,
     },
     card: {
       backgroundColor: palette.form,

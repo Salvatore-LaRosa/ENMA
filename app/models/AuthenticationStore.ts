@@ -7,7 +7,8 @@ export const AuthenticationStoreModel = types
     loginPin: "",
     authEmail: "",
     signinPin: "",
-    lang: types.maybe(types.string)
+    lang: types.maybe(types.string),
+    profileImage: "",
   })
   .views((store) => ({
     get isAuthenticated() {
@@ -65,7 +66,10 @@ export const AuthenticationStoreModel = types
       const { navigation } = _props
       store.lang = value
       console.log("Language: " + store.lang)
-      navigation.goBack()
+    },
+    setProfileImage(value: string) {
+      store.profileImage = value
+      console.log("SetProfileImage")
     }
   }))
 
