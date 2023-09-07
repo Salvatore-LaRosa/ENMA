@@ -12,7 +12,7 @@ const en = {
     tapToSignIn: "Login",
   },
   aprovedAuthenitcationScreen: {
-    title: "Welcom Back ",
+    title: "Welcome Back ",
     pinFieldPlaceholder: "Pin",
     button: "Login",
     resetPin: "Reset pin"
@@ -53,11 +53,13 @@ const en = {
     loadPhotoTitle: "Upload Image",
     order: "Order",
     categories: "Categories",
-    placeholderCategories: "443,45",
+    placeholderCategories: "Add Amount",
     amount: "Amount",
-    placeholderAmount: "500 €",
+    placeholderAmount: "Add Amount",
     note: "Note",
-    placeholderNote: "Add Note",
+    placeholderNote: "Add Notes",
+    button: "Add",
+    date: "Date",
   },
   errorScreen: {
     title: "Something went wrong!",

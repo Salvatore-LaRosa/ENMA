@@ -87,6 +87,10 @@ export function Icon(props: IconProps) {
 export const iconRegistry = {
   hidden: require("../../assets/icons/hidden.png"),
   view: require("../../assets/icons/view.png"),
+  home: require("../../assets/icons/Home.png"),
+  presenze: require("../../assets/icons/Presenze.png"),
+  rimborsi: require("../../assets/icons/Rimborsi.png"),
+  settings: require("../../assets/icons/Sett.png"),
 
   profilo: require("../../assets/icons/ProfileImage.png"),
 }

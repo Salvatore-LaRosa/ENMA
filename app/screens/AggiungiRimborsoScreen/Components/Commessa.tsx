@@ -25,14 +25,17 @@ const Commessa = () => {
     const snapPoints = ["25%", "48%", "75%"];
 
     function handlePresentModal() {
-    bottomSheetModalRef.current?.present();
-    setTimeout(() => {
-        setIsOpen(true);
-    }, 100);
+        bottomSheetModalRef.current?.present();
+        setTimeout(() => {
+            setIsOpen(true);
+        }, 100);
     }
 
-    const [selectedLanguage, setSelectedLanguage] = useState();
     const [isOpen, setIsOpen] = useState(false);
+
+    const {
+        rimborsoStore: { commessa, setCommessa, validationCommessaError: validationError },
+      } = useStores()
 
     return (
         <View>
@@ -47,7 +50,7 @@ const Commessa = () => {
                             style={style.view}
                         >
                             <Text
-                            text="Edison/Sample"
+                            text={commessa}
                             style={style.textCard}
                             />
                         </View>
@@ -65,9 +68,9 @@ const Commessa = () => {
                     headingStyle={style.headingCard}
                     ContentComponent={
                     <Picker
-                        selectedValue={selectedLanguage}
+                        selectedValue={commessa}
                         onValueChange={(itemValue, itemIndex) =>
-                        setSelectedLanguage(itemValue)
+                        setCommessa(itemValue)
                         }>
                             <Picker.Item label="Edison" value="Edison" />
                             <Picker.Item label="Sorgenia" value="Sorgenia" />
@@ -87,9 +90,9 @@ const Commessa = () => {
                 <View style={style.contentContainer}>
                     <Picker
                         itemStyle={style.text}
-                        selectedValue={selectedLanguage}
+                        selectedValue={commessa}
                         onValueChange={(itemValue, itemIndex) =>
-                        setSelectedLanguage(itemValue)
+                        setCommessa(itemValue)
                         }>
                             <Picker.Item label="Edison" value="Edison" />
                             <Picker.Item label="Sorgenia" value="Sorgenia" />

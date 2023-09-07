@@ -24,6 +24,10 @@ const Categories = () => {
 
     const snapPoints = ["25%", "48%", "75%"];
 
+    const {
+        rimborsoStore: { categoria, setCategoria, validationCategoriaError: validationError },
+      } = useStores()
+
     function handlePresentModal() {
     bottomSheetModalRef.current?.present();
     setTimeout(() => {
@@ -31,7 +35,6 @@ const Categories = () => {
     }, 100);
     }
 
-    const [selectedLanguage, setSelectedLanguage] = useState();
     const [isOpen, setIsOpen] = useState(false);
 
     return (
@@ -47,7 +50,7 @@ const Categories = () => {
                             style={style.view}
                         >
                             <Text
-                            text="Trasporti/Sample"
+                            text={categoria}
                             style={style.textCard}
                             />
                             <Text
@@ -78,12 +81,12 @@ const Categories = () => {
                     ContentComponent={
                         <View>
                             <Picker
-                                selectedValue={selectedLanguage}
+                                selectedValue={categoria}
                                 onValueChange={(itemValue, itemIndex) =>
-                                setSelectedLanguage(itemValue)
+                                setCategoria(itemValue)
                                 }>
-                                    <Picker.Item label="Edison" value="Edison" />
-                                    <Picker.Item label="Sorgenia" value="Sorgenia" />
+                                    <Picker.Item label="Trasporti" value="Trasporti" />
+                                    <Picker.Item label="Albergo" value="Albergo" />
                             </Picker>
                             <Text
                             text="Km Percorsi/Sample"
@@ -113,12 +116,12 @@ const Categories = () => {
                 <View style={style.contentContainer}>
                     <Picker
                         itemStyle={style.text}
-                        selectedValue={selectedLanguage}
+                        selectedValue={categoria}
                         onValueChange={(itemValue, itemIndex) =>
-                        setSelectedLanguage(itemValue)
+                        setCategoria(itemValue)
                         }>
-                            <Picker.Item label="Edison" value="Edison" />
-                            <Picker.Item label="Sorgenia" value="Sorgenia" />
+                            <Picker.Item label="Trasporti" value="Trasporti" />
+                            <Picker.Item label="Albergo" value="Albergo" />
                     </Picker>
                 </View>
             </BottomSheetModal>
@@ -132,7 +135,6 @@ function getStyle(palette) {
     return {
         view: {
             flexDirection: "column" as "column",
-            marginStart: spacing.xs,
             marginTop: spacing.xxs,
         },
         card: {
@@ -146,6 +148,7 @@ function getStyle(palette) {
         },
         titleCard: {
           marginTop: spacing.xs,
+          marginStart: spacing.xs,
           color: palette.secondaryText,
         },
         textCard: {
@@ -178,7 +181,7 @@ function getStyle(palette) {
         },
         textField: {
             backgroundColor: palette.form,
-            marginStart: 0,
+            marginStart: spacing.xxs,
             marginTop: 0,
             borderColor: colors.transparent,
             borderRadius: 0,

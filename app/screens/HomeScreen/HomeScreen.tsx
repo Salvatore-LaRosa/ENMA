@@ -15,7 +15,7 @@ import SvgHealthcare from "app/components/Svg/SvgHealthcare"
 import SvgWallet from "app/components/Svg/SvgWallet"
 import { useStores } from "app/models"
 
-export const HomeScreen: FC<HomeTabScreenProps<"Home">> = 
+export const HomeScreen: FC<HomeTabScreenProps<"Homepage">> = 
   function HomeScreen(_props) {
     const isDark = useColorScheme() === "dark"
 

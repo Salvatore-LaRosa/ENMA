@@ -1,4 +1,4 @@
-import React, { FC, useMemo, useState } from "react"
+import React, { FC, useEffect, useMemo, useState } from "react"
 import { observer } from "mobx-react-lite"
 import { View, useColorScheme } from "react-native"
 import { NativeStackScreenProps } from "@react-navigation/native-stack"
@@ -6,14 +6,18 @@ import { AppStackScreenProps } from "app/navigators"
 import { Button, Card, Header, Screen, Text, TextField } from "app/components"
 import { colors, spacing } from "app/theme"
 import { LinearGradient } from 'expo-linear-gradient';
+import { useStores } from "app/models"
+
+// Components
+import Commessa from "./Components/Commessa"
+import Categories from "./Components/Categories"
+import Date from "./Components/Data"
 
 // Svg conponents
 import SvgBack from "app/components/Svg/SvgBack"
 import LoadPhoto from "./Components/LoadPhoto"
 import { GestureHandlerRootView } from "react-native-gesture-handler"
 import { BottomSheetModalProvider } from "@gorhom/bottom-sheet"
-import Commessa from "./Components/Commessa"
-import Categories from "./Components/Categories"
 
 interface AggiungiRimborsoScreenProps extends NativeStackScreenProps<AppStackScreenProps<"AggiungiRimborso">> {}
 
@@ -35,12 +39,52 @@ export const AggiungiRimborsoScreen: FC<AggiungiRimborsoScreenProps> = observer(
     navigation.goBack()
   }
 
+  const {
+    rimborsoStore: { costo, setCosto, validationCostoError: validationError },
+  } = useStores()
+  const {
+    rimborsoStore: { note, setNote},
+  } = useStores()
+  const {
+    rimborsoStore: { commessa, setCommessa},
+  } = useStores()
+  const {
+    rimborsoStore: { categoria, setCategoria},
+  } = useStores()  
+  const {
+    rimborsoStore: { data, setData},
+  } = useStores()
+
+  const {rimborsoStore: {rimborsi, addRimborso}} = useStores();
+
   function add() {
 
+    if (validationError) return
+
+    const nuovoRimborso = {
+      commessa: commessa,
+      categoria: categoria,
+      costo: costo,
+      note: note,
+      data: data.toLocaleDateString(),
+    };
+
+    addRimborso(nuovoRimborso);
+
+    setCommessa(undefined);
+    setCategoria(undefined);
+    setCosto(undefined);
+    setNote(undefined);
+    setData(undefined);
+
+    navigation.goBack()
   }
 
-  const [amount, setAmount] = useState("")
-  const [note, setNote] = useState("")
+
+  useEffect(()=>{
+    console.log(rimborsi);
+
+  }, [rimborsi])
   return (
 
     <GestureHandlerRootView style={{ flex: 1 }}>
@@ -67,14 +111,16 @@ export const AggiungiRimborsoScreen: FC<AggiungiRimborsoScreenProps> = observer(
 
           <Categories/>
 
+          <Date/>
+
           <Card
             style={style.card}
             headingTx="addRimborsiScreen.amount"
             headingStyle={style.headingCard}
             ContentComponent={
                 <TextField
-                  value={amount}
-                  onChangeText={setAmount}
+                  value={costo}
+                  onChangeText={setCosto}
                   keyboardType="decimal-pad"
                   style={style.textField}
                   inputWrapperStyle={style.textField}
@@ -83,6 +129,8 @@ export const AggiungiRimborsoScreen: FC<AggiungiRimborsoScreenProps> = observer(
                 />
             }
           />
+
+
 
           <Card
             style={style.card}
@@ -109,7 +157,7 @@ export const AggiungiRimborsoScreen: FC<AggiungiRimborsoScreenProps> = observer(
             <Button
               pressedStyle={{backgroundColor: palette.buttonGradientEnd}}
               testID="login-button"
-              tx="loginScreen.tapToSignIn"
+              tx="addRimborsiScreen.button"
               preset="reversed"
               onPress={add}
             />
@@ -148,9 +196,6 @@ function getStyle(palette) {
     headingCard: {
       color: palette.secondaryText,
       marginStart: spacing.xs,
-    },
-    textCard: {
-      color: palette.mainText,
     },
     textField: {
         backgroundColor: palette.form,

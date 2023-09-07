@@ -13,6 +13,9 @@ import SvgSearch from "app/components/Svg/SvgSearch"
 import SvgFilter from "app/components/Svg/SvgFilter"
 import SvgPlus from "app/components/Svg/SvgPlus"
 import { useStores } from "app/models"
+import { rimborsoSpese } from "../AggiungiRimborsoScreen/mockDats/rimborsiSpese"
+
+import ViewCards from "./Components/ViewCards"
 
 interface RimborsiScreenProps extends NativeStackScreenProps<AppStackScreenProps<"Rimborsi">> {}
 
@@ -28,11 +31,16 @@ export const RimborsiScreen: FC<RimborsiScreenProps> = observer(function Rimbors
   }, [palette])
 
   const [search, setSearch] = useState("")
+  const {rimborsoStore: {rimborsi}} = useStores();
   const [nRefound, setNRefound] = useState("2")
   const [total, setTotal] = useState("576,94")
   
   function setFilter() {
     console.log("Filtro")
+  }
+
+  const getRimborsoSpese = async (params) => {
+    return rimborsoSpese
   }
 
   const { navigation } = _props
@@ -45,6 +53,7 @@ export const RimborsiScreen: FC<RimborsiScreenProps> = observer(function Rimbors
   } = useStores()
 
   return (
+    <>
     <Screen style={style.screen} preset="scroll">
 
       <Header
@@ -96,7 +105,7 @@ export const RimborsiScreen: FC<RimborsiScreenProps> = observer(function Rimbors
             style={style.subTitle}
           />
           <Text 
-            text={nRefound}
+            text={`${rimborsi.length}`}
             style={style.subText}
           />
         </View>
@@ -113,27 +122,50 @@ export const RimborsiScreen: FC<RimborsiScreenProps> = observer(function Rimbors
 
       </View>
 
-      <Card
-        style={style.card}
-      />
+      {rimborsi.map((el, index) => (
+        <Card
+          key={index}
+          heading={el.commessa}
+          headingStyle={style.headingCard}
+          ContentComponent={
+              <View
+                  style={style.view}
+              >
+                  <Text
+                      text={rimborsi[index].costo + " €"}
+                      style={style.textCostoCard}
+                  />
+                  <Text
+                      text={rimborsi[index].data}
+                      style={style.subText}
+                  />
+              </View>
+          }
+          style={style.card}
 
-    <View style={{flexDirection: "row-reverse"}}>
-      <LinearGradient
-        colors={[palette.buttonGradientStart, palette.buttonGradientEnd]}
-        start={ {x: 0, y: 0} }
-        end={ {x: 0, y: 1} }
-        style={style.gradientButton}>
-        <Button
-          RightAccessory={(props) => <SvgPlus/>}
-          pressedStyle={{backgroundColor: palette.buttonGradientEnd}}
-              testID="login-button"
-              preset="reversed"
-              onPress={goAdd}
         />
-      </LinearGradient>
-    </View>
+      ))} 
+
+
 
     </Screen>
+
+<View style={style.fixedButtonContainer}>
+<LinearGradient
+  colors={[palette.buttonGradientStart, palette.buttonGradientEnd]}
+  start={ {x: 0, y: 0} }
+  end={ {x: 0, y: 1} }
+  style={style.gradientButton}>
+  <Button
+    RightAccessory={(props) => <SvgPlus/>}
+    pressedStyle={{backgroundColor: palette.buttonGradientEnd}}
+        testID="login-button"
+        preset="reversed"
+        onPress={goAdd}
+  />
+</LinearGradient>
+</View>
+</>
   )
 })
 
@@ -178,7 +210,7 @@ function getStyle(palette) {
       color: palette.secondaryText
     },
     subText: {
-      marginStart: spacing.xxs,
+      marginStart: spacing.xxxs,
       fontSize: 16,
       color: palette.mainText
     },
@@ -192,6 +224,23 @@ function getStyle(palette) {
       heigth: 60,
       borderRadius: 30,
       marginTop: spacing.xl,
+    },
+    headingCard: {
+      color: palette.mainText,
+      marginStart: spacing.xs,
+    },
+    view: {
+      flexDirection: "column" as "column",
+      marginStart: spacing.xs,
+      marginTop: spacing.xxs,
+    },
+    textCostoCard: {
+      color: colors.palette.success500,
+    },
+    fixedButtonContainer: {
+      position: "absolute" as "absolute",
+      top: 600, // Regola la distanza dal basso come desideri
+      right: spacing.md, // Regola la distanza dalla destra come desideri
 
     },
   };

@@ -6,6 +6,7 @@ import { useSafeAreaInsets } from "react-native-safe-area-context"
 import { translate } from "../i18n"
 import { colors, spacing } from "../theme"
 import { AppStackParamList, AppStackScreenProps } from "./AppNavigator"
+import { Icon } from "../components"
 
 // screens
 import { HomeScreen } from "../screens"
@@ -20,7 +21,7 @@ import SvgRimborsi from "app/components/Svg/SvgRimborsi"
 import SvgPresenze from "app/components/Svg/SvgPresenze"
 
 export type HomeTabParamList = {
-  Home: undefined
+  Homepage: undefined
   Presenze: undefined
   Rimborsi: undefined
   Impostazioni: undefined
@@ -63,11 +64,11 @@ export function Navigator() {
       }}
     >
       <Tab.Screen
-        name="Home"
+        name="Homepage"
         component={HomeScreen}
         options={{
           tabBarIcon: ({ focused }) => (
-            <SvgHome color={isDark? focused && colors.dark.buttonGradientStart : focused && colors.light.buttonGradientStart} />
+            <Icon icon="home"  color={isDark? focused && colors.dark.buttonGradientStart : focused && colors.light.buttonGradientStart} />
           ),
         }}
       />
@@ -76,7 +77,7 @@ export function Navigator() {
         component={PresenzeScreen}
         options={{
           tabBarIcon: ({ focused }) => (
-            <SvgPresenze color={isDark? focused && colors.dark.buttonGradientStart : focused && colors.light.buttonGradientStart} />
+            <Icon icon="presenze"  color={isDark? focused && colors.dark.buttonGradientStart : focused && colors.light.buttonGradientStart} />
           ),
         }}
       />
@@ -85,7 +86,7 @@ export function Navigator() {
         component={RimborsiScreen}
         options={{
           tabBarIcon: ({ focused }) => (
-            <SvgRimborsi color={isDark? focused && colors.dark.buttonGradientStart : focused && colors.light.buttonGradientStart}/>
+            <Icon icon="rimborsi" color={isDark? focused && colors.dark.buttonGradientStart : focused && colors.light.buttonGradientStart}/>
           ),
         }}
       />
@@ -94,7 +95,7 @@ export function Navigator() {
         component={ImpostazioniScreen}
         options={{
           tabBarIcon: ({ focused }) => (
-            <SvgSettings color={isDark? focused && colors.dark.buttonGradientStart : focused && colors.light.buttonGradientStart}/>
+            <Icon icon="settings"  color={isDark? focused && colors.dark.buttonGradientStart : focused && colors.light.buttonGradientStart}/>
           ),
         }}
       />

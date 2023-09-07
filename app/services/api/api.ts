@@ -13,6 +13,7 @@ import Config from "../../config"
 import type {
   ApiConfig,
 } from "./api.types"
+import { rimborsoSpese } from "app/screens/AggiungiRimborsoScreen/mockDats/rimborsiSpese"
 
 /**
  * Configuring the apisauce instance.
@@ -46,6 +47,14 @@ export class Api {
 
   async login(username,password) {
     //let response = await this.apisauce.get("/login/login_miner.php")
+  }
+
+  async getRimborsoSpese() {
+    return rimborsoSpese;
+  }
+
+  async addRimborsoSpese(rimborso) {
+    rimborsoSpese.push(rimborso);
   }
 
 }
