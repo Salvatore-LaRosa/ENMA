@@ -74,9 +74,6 @@ export const RimborsoStoreModel = types
         console.log("Note: ", store.note)
     },
     addRimborso(rimborso: { commessa: string; categoria: string; costo: string; note: string; data: string;}) {
-        while (store.rimborsi.length>0) {
-            store.rimborsi.pop();
-        }
         store.rimborsi.push(rimborso)
         console.log("Rimborso: ", store.rimborsi, ", Lunghezza: ", store.rimborsi.length)
     },
