@@ -72,7 +72,7 @@ const Data = () => {
             style={style.card}
             headingTx="addRimborsiScreen.date"
             headingStyle={style.headingCard}
-            onPress={handlePresentModal}
+            onPress={Platform.OS === 'ios' ? handlePresentModal : showDatepicker}
             ContentComponent={
                 <Text 
                     style={style.text}>

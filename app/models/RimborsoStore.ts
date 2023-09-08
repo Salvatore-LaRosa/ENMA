@@ -7,7 +7,7 @@ export const RimborsoStoreModel = types
   .props({
     commessa: types.maybe(types.string),
     categoria: types.maybe(types.string),
-    data: types.maybe(types.Date),
+    data: new Date(1598051730000),
     orario: types.optional(types.string, ""),
     costo: types.maybe(types.string),
     note: types.maybe(types.string),
