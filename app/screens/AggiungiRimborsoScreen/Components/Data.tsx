@@ -38,7 +38,6 @@ const Data = () => {
         rimborsoStore: { data, setData, validationDataError: validationError },
     } = useStores()
 
-    //const [date, setDate] = useState(new Date(1598051730000));
     const [mode, setMode] = useState('date');
     const [show, setShow] = useState(false);
   

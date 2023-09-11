@@ -15,8 +15,6 @@ import SvgPlus from "app/components/Svg/SvgPlus"
 import { useStores } from "app/models"
 import { rimborsoSpese } from "../AggiungiRimborsoScreen/mockDats/rimborsiSpese"
 
-import ViewCards from "./Components/ViewCards"
-
 interface RimborsiScreenProps extends NativeStackScreenProps<AppStackScreenProps<"Rimborsi">> {}
 
 export const RimborsiScreen: FC<RimborsiScreenProps> = observer(function RimborsiScreen(_props) {

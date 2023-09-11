@@ -12,7 +12,7 @@ export const RimborsoStoreModel = types
     costo: types.maybe(types.string),
     note: types.maybe(types.string),
 
-    rimborsi: types.array(types.frozen()), // Aggiungi un array 'rimborsi' al tuo store
+    rimborsi: types.array(types.frozen()),
   })
   .views((store) => ({
     //get
